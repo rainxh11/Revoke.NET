@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Chargily.EpayGateway.NET</id>
+    <version>1.0.2</version>
+    <authors>Ahmed Chakhoum (github.com/rainxh11)</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/rainxh11/Chargily.EpayGateway.NET</projectUrl>
+    <description>C# .NET Plugin for Chargily Epay Gateway</description>
+    <releaseNotes>First Release.</releaseNotes>
+    <readme>README.md</readme>
+    <icon>chargily.png</icon>
+    <copyright>$copyright$</copyright>
+    <tags>chargily epay ccp cib payment gateway aspnet xamarin maui plugin algerieposte</tags>
+  </metadata>
+  <files>
+    <file src=".\assets\chargily.png" target="\assets" />
+    <file src=".\README.md" target="\" />
+    <file src="**" target="\" exclude="Chargily.EpayGateway.NET\obj\**\*.*;.git;.git\**\*.*;;.vs\**\*.*;Chargily.EpayGateway.NET.AspNetCore.MinimalAPIExample\**\*.*:"/>
+</files>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+</package>

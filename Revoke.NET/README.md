@@ -1,7 +1,3 @@
-<img src="https://raw.githubusercontent.com/rainxh11/Revoke.NET/master/assets/revoke.net.svg" width="300">
-
-[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)
-
 # Revoke.NET
 .NET Utility to revoke access based on some given criterias including but not limited to:
 - Web Tokens like JWT Bearer token
