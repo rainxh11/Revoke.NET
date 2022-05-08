@@ -1,6 +1,9 @@
 <img src="https://raw.githubusercontent.com/rainxh11/Revoke.NET/master/assets/revoke.net.svg" width="300">
 
-[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)
+||Revoke.NET|Revoke.NET.Akavache|Revoke.NET.MonkeyCache|Revoke.NET.MongoDB|Revoke.NET.Redis|
+|-|-|-|-|-|-|
+|*NuGet*|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Akavache.svg)](https://www.nuget.org/packages/Revoke.NET.Akavache/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MonkeyCache.svg)](https://www.nuget.org/packages/Revoke.NET.MonkeyCache/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MongoDB.svg)](https://www.nuget.org/packages/Revoke.NET.MongoDB/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Redis.svg)](https://www.nuget.org/packages/Revoke.NET.Redis/)
+
 
 # Revoke.NET
 .NET Utility to revoke access based on some given criterias including but not limited to:
@@ -26,6 +29,8 @@ var key = "[ID String of something to be blacklisted]";
 await store.Revoke(key, TimeSpan.FromHours(24)); // Revoke access to a key for 24 hours
 
 var item = store.Get<SomeType>(key); // Retrieve a blacklisted item, SomeType must implement interface 'IBlackListItem'
+
+await store.Revoke<SomeType>(model); // Revoke an item with custom type
 
 await store.IsRevoked(key); // Check if key is blacklisted
 
@@ -76,9 +81,3 @@ app.MapGet("/logout", async ([FromServices] IBlackListStore store, HttpRequest r
 
 app.Run();
 ```
-
-# Other BlackList Stores:
-- Akavache Store ***_Coming..._***
-- MonkeyCache Store ***_Coming..._***
-- MongoDB Store ***_Coming..._***
-- Redis Store ***_Coming..._***

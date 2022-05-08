@@ -13,6 +13,7 @@ namespace Revoke.NET
         Task<bool> Revoke(string key);
         Task<bool> Revoke(string key, TimeSpan expireAfter);
         Task<bool> Revoke(string key, DateTimeOffset expireOn);
+        Task<bool> Revoke<T>(T item) where T : IBlackListItem;
         Task DeleteExpired();
         Task DeleteAll();
         Task<bool> IsRevoked(string key);

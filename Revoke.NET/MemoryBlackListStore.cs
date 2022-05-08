@@ -112,5 +112,10 @@ namespace Revoke.NET
                 return Task.FromResult(blackList.TryAdd(key, item));
             }
         }
+
+        public Task<bool> Revoke<T>(T item) where T : IBlackListItem
+        {
+            return Task.FromResult(blackList.TryAdd(item.Key, item));
+        }
     }
 }

@@ -23,6 +23,8 @@ await store.Revoke(key, TimeSpan.FromHours(24)); // Revoke access to a key for 2
 
 var item = store.Get<SomeType>(key); // Retrieve a blacklisted item, SomeType must implement interface 'IBlackListItem'
 
+await store.Revoke<SomeType>(model); // Revoke an item with custom type
+
 await store.IsRevoked(key); // Check if key is blacklisted
 
 await store.Delete(key); // Delete a key from blacklist
@@ -72,9 +74,3 @@ app.MapGet("/logout", async ([FromServices] IBlackListStore store, HttpRequest r
 
 app.Run();
 ```
-
-# Other BlackList Stores:
-- Akavache Store ***_Coming..._***
-- MonkeyCache Store ***_Coming..._***
-- MongoDB Store ***_Coming..._***
-- Redis Store ***_Coming..._***
