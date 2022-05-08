@@ -7,14 +7,14 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<OutputType>Library</OutputType>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<StartupObject />
 		<Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
 		<Description>Revoke.NET MongoDB Store Extension</Description>
 		<Copyright>© 2022 Chakhoum Ahmed</Copyright>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/rainxh11/Revoke.NET</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/rainxh11/Revoke.NET/Revoke.NET.MongoDB</RepositoryUrl>
+		<RepositoryUrl>https://github.com/rainxh11/Revoke.NET/tree/main/Revoke.NET.MongoDB</RepositoryUrl>
 		<RepositoryType>github</RepositoryType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>revoke;jwt;token;permission;deny;blacklist;aspnet;logout;expiration;invalidate;ip;mongo;mongodb;store</PackageTags>
@@ -26,7 +26,7 @@
 	  <None Include="readme.md" Pack="true" PackagePath="\" />
 	  <None Include="LICENSE" Pack="true" PackagePath="" />
 	  <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
-    <PackageReference Include="Revoke.NET" Version="1.0.2" />
+    <PackageReference Include="Revoke.NET" Version="1.0.3" />
   </ItemGroup>
 	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
 		<ItemGroup>

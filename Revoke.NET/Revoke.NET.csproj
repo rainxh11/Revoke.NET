@@ -7,7 +7,7 @@
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	  <OutputType>Library</OutputType>
-	  <Version>1.0.2</Version>
+	  <Version>1.0.3</Version>
 	  <StartupObject />
 	  <Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
 	  <Description>.NET Utility to blacklist and revoke access to stuff</Description>
@@ -24,7 +24,6 @@
 	  <None Include="assets\revoke.net.png" Pack="true" PackagePath="\" />
 	  <None Include="readme.md" Pack="true" PackagePath="\" />
 	  <None Include="LICENSE" Pack="true" PackagePath="" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />

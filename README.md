@@ -1,9 +1,13 @@
 <img src="https://raw.githubusercontent.com/rainxh11/Revoke.NET/master/assets/revoke.net.svg" width="300">
 
-||Revoke.NET|Revoke.NET.Akavache|Revoke.NET.MonkeyCache|Revoke.NET.MongoDB|Revoke.NET.Redis|
-|-|-|-|-|-|-|
-|*NuGet*|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Akavache.svg)](https://www.nuget.org/packages/Revoke.NET.Akavache/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MonkeyCache.svg)](https://www.nuget.org/packages/Revoke.NET.MonkeyCache/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MongoDB.svg)](https://www.nuget.org/packages/Revoke.NET.MongoDB/)|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Redis.svg)](https://www.nuget.org/packages/Revoke.NET.Redis/)
-
+||*NuGet*|
+|-|-|
+|Revoke.NET|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)|
+|Revoke.NET.AspNetCore|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.AspNetCore.svg)](https://www.nuget.org/packages/Revoke.NET.AspNetCore/)|
+|Revoke.NET.Akavache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Akavache.svg)](https://www.nuget.org/packages/Revoke.NET.Akavache/)|
+|Revoke.NET.MonkeyCache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MonkeyCache.svg)](https://www.nuget.org/packages/Revoke.NET.MonkeyCache/)|
+|Revoke.NET.MongoDB|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MongoDB.svg)](https://www.nuget.org/packages/Revoke.NET.MongoDB/)|
+|Revoke.NET.Redis|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Redis.svg)](https://www.nuget.org/packages/Revoke.NET.Redis/)
 
 # Revoke.NET
 .NET Utility to revoke access based on some given criterias including but not limited to:
@@ -38,8 +42,14 @@ await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
+Install the `Revoke.NET.AspNetCore` [NuGet package](https://www.nuget.org/packages/Revoke.NET.AspNetCore)
+```powershell
+PM> Install-Package Revoke.NET.AspNetCore
+```
+### Usage
 ```csharp
 using Revoke.NET;
+using Revoke.NET.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +66,7 @@ builder.Services
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Revoke.NET;
+using Revoke.NET.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,4 +91,3 @@ app.MapGet("/logout", async ([FromServices] IBlackListStore store, HttpRequest r
 });
 
 app.Run();
-```

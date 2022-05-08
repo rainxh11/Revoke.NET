@@ -1,6 +1,7 @@
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Revoke.NET;
+using Revoke.NET.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

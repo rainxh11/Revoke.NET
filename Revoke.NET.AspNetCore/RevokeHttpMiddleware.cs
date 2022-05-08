@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Revoke.NET
+namespace Revoke.NET.AspNetCore
 {
     public class RevokeHttpMiddleware : IMiddleware
     {

@@ -30,12 +30,17 @@ await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
+Install the `Revoke.NET.AspNetCore` [NuGet package](https://www.nuget.org/packages/Revoke.NET.AspNetCore)
+```powershell
+PM> Install-Package Revoke.NET.AspNetCore
+```
+
 ```csharp
 using Revoke.NET;
 using Revoke.NET.MongoDB;
+using Revoke.NET.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRevokeMongoStore();
-
 ```

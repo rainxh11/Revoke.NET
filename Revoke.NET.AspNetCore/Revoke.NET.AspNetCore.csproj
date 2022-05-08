@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
+		<PackageIcon>revoke.net.png</PackageIcon>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<OutputType>Library</OutputType>
+		<Version>1.0.4</Version>
+		<StartupObject />
+		<Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
+		<Description>Revoke.NET ASP.NET Core Extension</Description>
+		<Copyright>© 2022 Chakhoum Ahmed</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/rainxh11/Revoke.NET</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/rainxh11/Revoke.NET/tree/main/Revoke.NET.AspNetCore</RepositoryUrl>
+		<RepositoryType>github</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>revoke;jwt;token;permission;deny;blacklist;aspnet;logout;expiration;invalidate;ip</PackageTags>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<Nullable>annotations</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="assets\revoke.net.png" Pack="true" PackagePath="\" />
+		<None Include="readme.md" Pack="true" PackagePath="\" />
+		<None Include="LICENSE" Pack="true" PackagePath="" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+		<PackageReference Include="Revoke.NET" Version="1.0.3" />
+	</ItemGroup>
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
+</Project>
