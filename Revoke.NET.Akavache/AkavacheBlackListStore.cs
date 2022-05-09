@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Revoke.NET;
 using Akavache;
-using Akavache.Sqlite3;
+using Registrations = Akavache.Registrations;
 
-namespace Revoke.NET
+namespace Revoke.NET.Akavache
 {
     public class AkavacheBlackListStore : IBlackListStore
     {
@@ -19,7 +18,7 @@ namespace Revoke.NET
 
         public static async Task<IBlackListStore> CreateStoreAsync(string cacheName, IBlobCache blobCache)
         {
-            Akavache.Registrations.Start(cacheName);
+            Registrations.Start(cacheName);
             await blobCache.Vacuum();
             return new AkavacheBlackListStore(blobCache);
         }

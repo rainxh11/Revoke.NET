@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET", "Revoke.NET\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.MinimalAPIExample", "Revoke.NET.MinimalAPIExample\Revoke.NET.MinimalAPIExample.csproj", "{24F89710-1FE6-4D0F-9E63-4D6042D1A569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revoke.NET.MongoDB", "Revoke.NET.MongoDB\Revoke.NET.MongoDB.csproj", "{1D39190B-E092-47F6-AC4E-BD24F04F55D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.MongoDB", "Revoke.NET.MongoDB\Revoke.NET.MongoDB.csproj", "{1D39190B-E092-47F6-AC4E-BD24F04F55D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revoke.NET.Akavache", "Revoke.NET.Akavache\Revoke.NET.Akavache.csproj", "{E3CECBB3-985E-40B1-A5B2-E312463A3A72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.Akavache", "Revoke.NET.Akavache\Revoke.NET.Akavache.csproj", "{E3CECBB3-985E-40B1-A5B2-E312463A3A72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revoke.NET.MonkeyCache", "Revoke.NET.MonkeyCache\Revoke.NET.MonkeyCache.csproj", "{01B7F2DA-A733-4025-8B38-4C8E698D4C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.EasyCaching", "Revoke.NET.MonkeyCache\Revoke.NET.EasyCaching.csproj", "{01B7F2DA-A733-4025-8B38-4C8E698D4C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revoke.NET.Redis", "Revoke.NET.Redis\Revoke.NET.Redis.csproj", "{A5F3BC02-9E8F-444F-BDF8-27C3815C2362}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.Redis", "Revoke.NET.Redis\Revoke.NET.Redis.csproj", "{A5F3BC02-9E8F-444F-BDF8-27C3815C2362}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revoke.NET.AspNetCore", "Revoke.NET.AspNetCore\Revoke.NET.AspNetCore.csproj", "{54D90C45-FE00-4AB3-9369-8BBDA03863BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.AspNetCore", "Revoke.NET.AspNetCore\Revoke.NET.AspNetCore.csproj", "{54D90C45-FE00-4AB3-9369-8BBDA03863BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

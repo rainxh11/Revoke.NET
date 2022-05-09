@@ -1,14 +1,14 @@
 <img src="https://raw.githubusercontent.com/rainxh11/Revoke.NET/master/assets/revoke.net.svg" width="300">
 
-||*NuGet*|
-|-|-|
-|Revoke.NET|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)|
-|Revoke.NET.AspNetCore|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.AspNetCore.svg)](https://www.nuget.org/packages/Revoke.NET.AspNetCore/)|
-|Revoke.NET.Akavache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Akavache.svg)](https://www.nuget.org/packages/Revoke.NET.Akavache/)|
-|Revoke.NET.MonkeyCache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MonkeyCache.svg)](https://www.nuget.org/packages/Revoke.NET.MonkeyCache/)|
-|Revoke.NET.MongoDB|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MongoDB.svg)](https://www.nuget.org/packages/Revoke.NET.MongoDB/)|
-|Revoke.NET.Redis|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Redis.svg)](https://www.nuget.org/packages/Revoke.NET.Redis/)
-
+|Package Name|Version|Downloads|
+|-|-|-|
+|Revoke.NET|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.svg)](https://www.nuget.org/packages/Revoke.NET/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.svg)|
+|Revoke.NET.AspNetCore|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.AspNetCore.svg)](https://www.nuget.org/packages/Revoke.NET.AspNetCore/)|[Downloads](https://img.shields.io/nuget/dt/Revoke.NET.AspNetCore.svg)|
+|Revoke.NET.Akavache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Akavache.svg)](https://www.nuget.org/packages/Revoke.NET.Akavache/)|[Downloads](https://img.shields.io/nuget/dt/Revoke.NET.Akavache.svg)|
+|Revoke.NET.MongoDB|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MongoDB.svg)](https://www.nuget.org/packages/Revoke.NET.MongoDB/)|[Downloads](https://img.shields.io/nuget/dt/Revoke.NET.MongoDB.svg)|
+|Revoke.NET.Redis|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Redis.svg)](https://www.nuget.org/packages/Revoke.NET.Redis/)|[Downloads](https://img.shields.io/nuget/dt/Revoke.NET.Redis.svg)|
+|Revoke.NET.MonkeyCache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MonkeyCache.svg)](https://www.nuget.org/packages/Revoke.NET.MonkeyCache/)|[Downloads](https://img.shields.io/nuget/dt/Revoke.NET.MonkeyCache.svg)|
+|Revoke.NET.EasyCache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.EasyCache.svg)](https://www.nuget.org/packages/Revoke.NET.EasyCache/)|[Downloads](https://img.shields.io/nuget/dt/Revoke.NET.EasyCache.svg)
 # Revoke.NET
 .NET Utility to revoke access based on some given criterias including but not limited to:
 - Web Tokens like JWT Bearer token

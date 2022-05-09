@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Akavache;
 
-namespace Revoke.NET.MongoDB
+namespace Revoke.NET.Akavache
 {
     public static class RevokeService
     {
