@@ -55,7 +55,7 @@ namespace Revoke.NET.AspNetCore
                 if (context.Request.Headers.TryGetValue("Authorization", out var authHeader))
                 {
                     var jwtToken = AuthenticationHeaderValue.Parse(authHeader).Parameter;
-                    if (jwtToken != null) return "JWT_" + jwtToken;
+                    if (jwtToken != null) return jwtToken;
                 }
 
                 return null;
@@ -84,7 +84,7 @@ namespace Revoke.NET.AspNetCore
                 if (context.Request.Headers.TryGetValue("Authorization", out var authHeader))
                 {
                     var jwtToken = AuthenticationHeaderValue.Parse(authHeader).Parameter;
-                    if (jwtToken != null) return "JWT_" + jwtToken;
+                    if (jwtToken != null) return jwtToken;
                 }
 
                 return null;
@@ -106,7 +106,7 @@ namespace Revoke.NET.AspNetCore
         /// <returns></returns>
         public static IServiceCollection AddIPRevokeMiddleware(this IServiceCollection services)
         {
-            var ipSelector = new Func<HttpContext, string>(context => "IP_" + context.Request.Host.Host);
+            var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
@@ -126,7 +126,7 @@ namespace Revoke.NET.AspNetCore
         public static IServiceCollection AddIPRevokeMiddleware(this IServiceCollection services,
             Func<HttpResponse, Task<HttpResponse>> responseFunc)
         {
-            var ipSelector = new Func<HttpContext, string>(context => "IP_" + context.Request.Host.Host);
+            var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
@@ -144,7 +144,7 @@ namespace Revoke.NET.AspNetCore
         /// <returns></returns>
         public static IServiceCollection AddUserIdRevokeMiddleware(this IServiceCollection services)
         {
-            var ipSelector = new Func<HttpContext, string>(context => "USERID_" + context.Request.Host.Host);
+            var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
@@ -164,7 +164,7 @@ namespace Revoke.NET.AspNetCore
         public static IServiceCollection AddUserIdRevokeMiddleware(this IServiceCollection services,
             Func<HttpResponse, Task<HttpResponse>> responseFunc)
         {
-            var ipSelector = new Func<HttpContext, string>(context => "USERID_" + context.Request.Host.Host);
+            var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>

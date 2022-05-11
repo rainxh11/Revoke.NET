@@ -73,14 +73,19 @@ namespace Revoke.NET.AspNetCore
                             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         }
                     }
+                    else
+                    {
+                        await next(context);
+                    }
+                }
+                else
+                {
+                    await next(context);
                 }
             }
             catch (Exception ex)
             {
                 logger?.LogError(ex.Message);
-            }
-            finally
-            {
                 await next(context);
             }
         }

@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
     <PackageReference Include="Revoke.NET" Version="1.0.3" />
     <PackageReference Include="Revoke.NET.AspNetCore" Version="1.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
