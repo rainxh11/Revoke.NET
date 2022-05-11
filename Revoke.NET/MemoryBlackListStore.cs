@@ -63,7 +63,7 @@ namespace Revoke.NET
         {
             if (blackList.TryGetValue(key, out var item))
             {
-                return Task.FromResult(item.ExpireOn <= DateTimeOffset.Now);
+                return Task.FromResult(item.ExpireOn >= DateTimeOffset.Now);
             }
 
             return Task.FromResult(false);

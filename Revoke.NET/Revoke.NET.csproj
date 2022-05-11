@@ -7,7 +7,7 @@
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	  <OutputType>Library</OutputType>
-	  <Version>1.0.3</Version>
+	  <Version>1.0.4</Version>
 	  <StartupObject />
 	  <Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
 	  <Description>.NET Utility to blacklist and revoke access to stuff</Description>
