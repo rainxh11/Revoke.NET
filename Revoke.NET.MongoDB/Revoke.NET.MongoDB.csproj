@@ -7,7 +7,7 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<OutputType>Library</OutputType>
-		<Version>1.0.3</Version>
+		<Version>1.0.7</Version>
 		<StartupObject />
 		<Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
 		<Description>Revoke.NET MongoDB Store Extension</Description>
@@ -19,6 +19,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>revoke;jwt;token;permission;deny;blacklist;aspnet;logout;expiration;invalidate;ip;mongo;mongodb;store</PackageTags>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +27,7 @@
 	  <None Include="readme.md" Pack="true" PackagePath="\" />
 	  <None Include="LICENSE" Pack="true" PackagePath="" />
 	  <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
-    <PackageReference Include="Revoke.NET" Version="1.0.3" />
+    <PackageReference Include="Revoke.NET" Version="1.0.5" />
   </ItemGroup>
 	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
 		<ItemGroup>

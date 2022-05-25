@@ -7,7 +7,7 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<OutputType>Library</OutputType>
-		<Version>1.0.4</Version>
+		<Version>1.0.6</Version>
 		<StartupObject />
 		<Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
 		<Description>Revoke.NET Akavache Store Extension</Description>
@@ -19,6 +19,8 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>revoke;jwt;token;permission;deny;blacklist;aspnet;logout;expiration;invalidate;ip;mongo;mongodb;store</PackageTags>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,7 +29,7 @@
 		<None Include="LICENSE" Pack="true" PackagePath="" />
     <PackageReference Include="akavache" Version="8.1.1" />
     <PackageReference Include="akavache.sqlite3" Version="8.1.1" />
-    <PackageReference Include="Revoke.NET" Version="1.0.3" />
+    <PackageReference Include="Revoke.NET" Version="1.0.5" />
 	</ItemGroup>
 	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
 		<ItemGroup>

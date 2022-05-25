@@ -8,9 +8,9 @@ namespace Revoke.NET.MongoDB
 {
     public class MongoBlackListStore : IBlackListStore
     {
-        private readonly IMongoCollection<IBlackListItem> blacklist;
+        private readonly IMongoCollection<BlackListItem> blacklist;
 
-        private MongoBlackListStore(IMongoCollection<IBlackListItem> blacklist)
+        private MongoBlackListStore(IMongoCollection<BlackListItem> blacklist)
         {
             this.blacklist = blacklist;
         }
@@ -22,15 +22,15 @@ namespace Revoke.NET.MongoDB
 
             var db = client.GetDatabase(dbName);
 
-            var keyIndex = Builders<IBlackListItem>.IndexKeys.Ascending(x => x.Key);
-            var ttlIndex = Builders<IBlackListItem>.IndexKeys.Ascending(x => x.ExpireOn);
+            var keyIndex = Builders<BlackListItem>.IndexKeys.Ascending(x => x.Key);
+            var ttlIndex = Builders<BlackListItem>.IndexKeys.Ascending(x => x.ExpireOn);
 
-            var collection = db.GetCollection<IBlackListItem>(nameof(IBlackListItem));
+            var collection = db.GetCollection<BlackListItem>(nameof(BlackListItem));
 
             await collection.Indexes.CreateOneAsync(
-                new CreateIndexModel<IBlackListItem>(keyIndex, new CreateIndexOptions() { Unique = true }));
+                new CreateIndexModel<BlackListItem>(keyIndex, new CreateIndexOptions() { Unique = true }));
             await collection.Indexes.CreateOneAsync(
-                new CreateIndexModel<IBlackListItem>(keyIndex,
+                new CreateIndexModel<BlackListItem>(ttlIndex,
                     new CreateIndexOptions() { ExpireAfter = TimeSpan.FromMinutes(1) }));
 
             return new MongoBlackListStore(collection);

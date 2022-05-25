@@ -51,7 +51,7 @@ namespace Revoke.NET.Redis
         public async Task<T> Get<T>(string key) where T : IBlackListItem
         {
             var value = await blacklist.StringGetAsync(key);
-            return JsonSerializer.Deserialize<T>(value.ToString());
+            return JsonSerializer.Deserialize<T>((string)value.Box());
         }
 
         public async Task<IEnumerable<T>> GetAll<T>() where T : IBlackListItem
@@ -60,7 +60,7 @@ namespace Revoke.NET.Redis
             foreach (var key in servers.SelectMany(x => x.Keys()))
             {
                 var value = await blacklist.StringGetAsync(key);
-                temp.Add(JsonSerializer.Deserialize<T>(value.ToString()));
+                temp.Add(JsonSerializer.Deserialize<T>((string)value.Box()));
             }
 
             return temp;
@@ -74,19 +74,23 @@ namespace Revoke.NET.Redis
 
         public async Task<bool> Revoke(string key)
         {
-            var value = await blacklist.StringSetAndGetAsync(key, key);
+            var value = await blacklist.StringSetAndGetAsync(key,
+                JsonSerializer.Serialize(new BlackListItem(key, DateTimeOffset.MaxValue)));
             return value.HasValue;
         }
 
         public async Task<bool> Revoke(string key, TimeSpan expireAfter)
         {
-            var value = await blacklist.StringSetAndGetAsync(key, key, expireAfter);
+            var value = await blacklist.StringSetAndGetAsync(key,
+                JsonSerializer.Serialize(new BlackListItem(key, DateTimeOffset.MaxValue)), expireAfter);
             return value.HasValue;
         }
 
         public async Task<bool> Revoke(string key, DateTimeOffset expireOn)
         {
-            var value = await blacklist.StringSetAndGetAsync(key, key, expireOn - DateTimeOffset.Now);
+            var value = await blacklist.StringSetAndGetAsync(key,
+                JsonSerializer.Serialize(new BlackListItem(key, DateTimeOffset.MaxValue)),
+                expireOn - DateTimeOffset.Now);
             return value.HasValue;
         }
 

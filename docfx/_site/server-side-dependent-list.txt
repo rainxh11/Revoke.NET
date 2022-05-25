@@ -1,0 +1,2 @@
+{"dependency_type":"metadata","from_file_path":"C:\\Users\\rainx\\source\\repos\\Revoke.NET\\docfx\\index.md","to_file_path":"C:\\Users\\rainx\\source\\repos\\Revoke.NET\\docfx\\toc.yml"}
+{"dependency_type":"file","from_file_path":"C:\\Users\\rainx\\source\\repos\\Revoke.NET\\docfx\\toc.yml","to_file_path":"C:\\Users\\rainx\\source\\repos\\Revoke.NET\\docfx\\index.md"}

@@ -60,10 +60,6 @@ namespace Revoke.NET.AspNetCore
                 {
                     if (await store.IsRevoked(revokeKey))
                     {
-                        var item = await store.Get<IBlackListItem>(revokeKey);
-
-                        logger.LogInformation(
-                            $"[Revoke.NET] Revoked Access to key: '{revokeKey}', Blacklisting will be lifted on {item.ExpireOn}");
                         if (responseFunc != null)
                         {
                             await responseFunc(context.Response);
@@ -72,6 +68,10 @@ namespace Revoke.NET.AspNetCore
                         {
                             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         }
+
+
+                        logger.LogInformation(
+                            $"[Revoke.NET] Revoked Access to key: '{revokeKey}'");
                     }
                     else
                     {

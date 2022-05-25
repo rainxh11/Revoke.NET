@@ -7,7 +7,7 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<OutputType>Library</OutputType>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<StartupObject />
 		<Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
 		<Description>Revoke.NET Redis Store Extension</Description>
@@ -19,15 +19,19 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>revoke;jwt;token;permission;deny;blacklist;aspnet;logout;expiration;invalidate;ip;mongo;redis;stackexchange;store</PackageTags>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
   <ItemGroup>
 	  <None Include="assets\revoke.net.png" Pack="true" PackagePath="\" />
 	  <None Include="readme.md" Pack="true" PackagePath="\" />
 	  <None Include="LICENSE" Pack="true" PackagePath="" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
 	  <PackageReference Include="Revoke.NET" Version="1.0.4" />
     <PackageReference Include="StackExchange.Redis" Version="2.5.61" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.4" />
   </ItemGroup>
 	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
 		<ItemGroup>
