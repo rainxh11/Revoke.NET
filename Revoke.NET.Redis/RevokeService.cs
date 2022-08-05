@@ -7,7 +7,7 @@ namespace Revoke.NET.Redis
         public static IServiceCollection AddRevokeRedisStore(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => RedisBlackListStore.CreateStoreAsync("127.0.0.1:6379")
+                .AddSingleton<IBlackList>(provider => RedisBlackList.CreateStoreAsync("127.0.0.1:6379")
                     .GetAwaiter()
                     .GetResult());
         }
@@ -15,7 +15,7 @@ namespace Revoke.NET.Redis
         public static IServiceCollection AddRevokeRedisStore(this IServiceCollection services, string connectionString)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => RedisBlackListStore.CreateStoreAsync(connectionString)
+                .AddSingleton<IBlackList>(provider => RedisBlackList.CreateStoreAsync(connectionString)
                     .GetAwaiter()
                     .GetResult());
         }

@@ -4,11 +4,14 @@
 - HTTP Request Header Paramters, Query, URL, Host, IP, Cookies, Body, FormData, Claims...etc
 
 # Installation
-**First**, install the `Revoke.NET` [NuGet package](https://www.nuget.org/packages/Revoke.NET) into your app
+**First**, install the [`Revoke.NET`](https://www.nuget.org/packages/Revoke.NET) into your app
 ```powershell
-PM> Install-Package Revoke.NET
+Install-Package Revoke.NET
 ```
-
+or with dotnet cli: 
+```powershell
+dotnet add package Revoke.NET
+```
 # How to use
 simple create a new BlackList Store of type `IBlackListStore`
 ```csharp
@@ -21,16 +24,22 @@ var key = "[ID String of something to be blacklisted]";
 
 await store.Revoke(key, TimeSpan.FromHours(24)); // Revoke access to a key for 24 hours
 
-var item = store.Get<SomeType>(key); // Retrieve a blacklisted item, SomeType must implement interface 'IBlackListItem'
+await store.Revoke(key); // Revoke access indefinetly or with the defaulTtl expiration
 
-await store.Revoke<SomeType>(model); // Revoke an item with custom type
-
-await store.IsRevoked(key); // Check if key is blacklisted
+var revoked = await store.IsRevoked(key); // Check if key is blacklisted
 
 await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
+Install the [`Revoke.NET.AspNetCore`](https://www.nuget.org/packages/Revoke.NET.AspNetCore) into your app
+```powershell
+Install-Package Revoke.NET.AspNetCore
+```
+or with dotnet cli: 
+```powershell
+dotnet add package Revoke.NET.AspNetCore
+```
 ```csharp
 using Revoke.NET;
 

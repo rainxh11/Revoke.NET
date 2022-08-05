@@ -16,7 +16,7 @@ app.UseRevoke(); // Use Middleware before calling UseAuthorization()
 app.UseAuthorization();
 app.UseAuthentication();
 
-app.MapGet("/logout", async ([FromServices] IBlackListStore store, HttpRequest request) =>
+app.MapGet("/logout", async ([FromServices] IBlackList store, HttpRequest request) =>
 {
     var token = AuthenticationHeaderValue.Parse(request.Headers.Authorization).Parameter;
 

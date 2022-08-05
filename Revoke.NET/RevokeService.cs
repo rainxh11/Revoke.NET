@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Revoke.NET
 {
     public static class RevokeService
     {
+        public static IServiceCollection AddRevokeMemoryCacheStore(this IServiceCollection services,
+            TimeSpan? defaultTtl = null)
+        {
+            services.TryAddSingleton<IBlackList>(provider =>
+                new MemoryCacheBlackList(provider.GetService<IMemoryCache>(), defaultTtl));
+            return services;
+        }
+
         /// <summary>
         /// Register default InMemory BlackList Store Service
         /// </summary>
@@ -19,8 +29,9 @@ namespace Revoke.NET
         public static IServiceCollection AddRevokeInMemoryStore(this IServiceCollection services,
             TimeSpan? defaultTtl = null)
         {
-            return services
-                .AddSingleton<IBlackListStore>(MemoryBlackListStore.CreateStore(defaultTtl));
+            services
+                .TryAddSingleton<IBlackList>(MemoryBlackList.CreateStore(defaultTtl));
+            return services;
         }
 
         /// <summary>
@@ -30,10 +41,11 @@ namespace Revoke.NET
         /// <param name="configure"></param>
         /// <returns></returns>
         public static IServiceCollection AddRevokeStore(this IServiceCollection services,
-            Func<IBlackListStore> configure)
+            Func<IBlackList> configure)
         {
-            return services
-                .AddSingleton<IBlackListStore>(configure());
+            services
+                .TryAddSingleton<IBlackList>(configure());
+            return services;
         }
 
         /// <summary>
@@ -43,10 +55,11 @@ namespace Revoke.NET
         /// <param name="configure"></param>
         /// <returns></returns>
         public static IServiceCollection AddRevokeStore(this IServiceCollection services,
-            Func<IServiceProvider, IBlackListStore> configure)
+            Func<IServiceProvider, IBlackList> configure)
         {
-            return services
-                .AddSingleton<IBlackListStore>(configure);
+            services
+                .TryAddSingleton<IBlackList>(configure);
+            return services;
         }
     }
 }

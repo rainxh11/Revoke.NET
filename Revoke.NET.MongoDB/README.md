@@ -20,10 +20,6 @@ var key = "[ID String of something to be blacklisted]";
 
 await store.Revoke(key, TimeSpan.FromHours(24)); // Revoke access to a key for 24 hours
 
-await store.Revoke<SomeType>(model); // Revoke an item with custom type
-
-var item = store.Get<SomeType>(key); // Retrieve a blacklisted item, SomeType must implement interface 'IBlackListItem'
-
 await store.IsRevoked(key); // Check if key is blacklisted
 
 await store.Delete(key); // Delete a key from blacklist

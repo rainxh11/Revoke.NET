@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.MongoDB", "Revok
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.Akavache", "Revoke.NET.Akavache\Revoke.NET.Akavache.csproj", "{E3CECBB3-985E-40B1-A5B2-E312463A3A72}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.EasyCaching", "Revoke.NET.MonkeyCache\Revoke.NET.EasyCaching.csproj", "{01B7F2DA-A733-4025-8B38-4C8E698D4C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.EasyCaching", "Revoke.NET.EasyCaching\Revoke.NET.EasyCaching.csproj", "{01B7F2DA-A733-4025-8B38-4C8E698D4C92}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revoke.NET.Redis", "Revoke.NET.Redis\Revoke.NET.Redis.csproj", "{A5F3BC02-9E8F-444F-BDF8-27C3815C2362}"
 EndProject

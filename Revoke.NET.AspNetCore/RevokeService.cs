@@ -18,7 +18,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, selector);
                 });
@@ -37,7 +37,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, selector, responseFunc);
                 });
@@ -64,7 +64,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, bearerTokenSelector);
                 });
@@ -93,7 +93,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, bearerTokenSelector, responseFunc);
                 });
@@ -111,7 +111,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, ipSelector);
                 });
@@ -131,7 +131,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, ipSelector, responseFunc);
                 });
@@ -149,7 +149,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, ipSelector);
                 });
@@ -169,7 +169,7 @@ namespace Revoke.NET.AspNetCore
             return services
                 .AddSingleton<RevokeHttpMiddleware>(provider =>
                 {
-                    var store = provider.GetService<IBlackListStore>();
+                    var store = provider.GetService<IBlackList>();
                     var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
                     return new RevokeHttpMiddleware(store, logger, ipSelector, responseFunc);
                 });

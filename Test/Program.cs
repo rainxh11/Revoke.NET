@@ -1,12 +1,12 @@
 ﻿using Revoke.NET;
 using Revoke.NET.Redis;
 
-var store = await RedisBlackListStore.CreateStoreAsync("localhost");
+var store = await RedisBlackList.CreateStoreAsync("localhost");
 
-await store.Revoke("Ahmed", DateTimeOffset.MaxValue);
+await store.Revoke("Ahmed", DateTime.MaxValue);
 
-var item = await store.Get<BlackListItem>("Ahmed");
+var revoked = await store.IsRevoked("Ahmed");
 
-Console.WriteLine(item.Key);
+Console.WriteLine(revoked);
 
 Console.ReadKey();

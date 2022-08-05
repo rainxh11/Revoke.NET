@@ -11,7 +11,7 @@ namespace Revoke.NET.Akavache
         public static IServiceCollection AddRevokeAkavacheSQLiteStore(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => AkavacheBlackListStore
+                .AddSingleton<IBlackList>(provider => AkavacheBlackList
                     .CreateStoreAsync("RevokeStore", BlobCache.LocalMachine)
                     .GetAwaiter()
                     .GetResult());
@@ -20,7 +20,7 @@ namespace Revoke.NET.Akavache
         public static IServiceCollection AddRevokeAkavacheInMemoryStore(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => AkavacheBlackListStore
+                .AddSingleton<IBlackList>(provider => AkavacheBlackList
                     .CreateStoreAsync("RevokeStore", BlobCache.InMemory)
                     .GetAwaiter()
                     .GetResult());
@@ -30,7 +30,7 @@ namespace Revoke.NET.Akavache
             Func<IServiceProvider, IBlobCache> configBlobCache)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => AkavacheBlackListStore
+                .AddSingleton<IBlackList>(provider => AkavacheBlackList
                     .CreateStoreAsync("RevokeStore", configBlobCache(provider))
                     .GetAwaiter()
                     .GetResult());

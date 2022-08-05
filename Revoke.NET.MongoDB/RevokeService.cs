@@ -11,7 +11,7 @@ namespace Revoke.NET.MongoDB
         public static IServiceCollection AddRevokeMongoStore(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => MongoBlackListStore.CreateStoreAsync(
+                .AddSingleton<IBlackList>(provider => MongoBlackList.CreateStoreAsync(
                         "RevokeStore",
                         MongoClientSettings.FromConnectionString("mongodb://127.0.0.1:27017/RevokeStore"))
                     .GetAwaiter()
@@ -22,7 +22,7 @@ namespace Revoke.NET.MongoDB
             MongoClientSettings settings)
         {
             return services
-                .AddSingleton<IBlackListStore>(provider => MongoBlackListStore.CreateStoreAsync(
+                .AddSingleton<IBlackList>(provider => MongoBlackList.CreateStoreAsync(
                         dbName,
                         settings)
                     .GetAwaiter()

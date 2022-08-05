@@ -11,7 +11,7 @@ namespace Revoke.NET.AspNetCore
 {
     public class RevokeHttpMiddleware : IMiddleware
     {
-        private readonly IBlackListStore store;
+        private readonly IBlackList store;
         private readonly Func<HttpContext, string> selector;
 
 #nullable enable
@@ -19,7 +19,7 @@ namespace Revoke.NET.AspNetCore
         private Func<HttpResponse, Task<HttpResponse>>? responseFunc;
 #nullable disable
 
-        public RevokeHttpMiddleware(IBlackListStore store, ILogger<RevokeHttpMiddleware> logger,
+        public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger,
             Func<HttpContext, string> selector)
         {
             this.store = store;
@@ -27,13 +27,13 @@ namespace Revoke.NET.AspNetCore
             this.selector = selector;
         }
 
-        public RevokeHttpMiddleware(IBlackListStore store, Func<HttpContext, string> selector)
+        public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector)
         {
             this.store = store;
             this.selector = selector;
         }
 
-        public RevokeHttpMiddleware(IBlackListStore store, ILogger<RevokeHttpMiddleware> logger,
+        public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger,
             Func<HttpContext, string> selector, Func<HttpResponse, Task<HttpResponse>> responseFunc)
         {
             this.store = store;
@@ -42,7 +42,7 @@ namespace Revoke.NET.AspNetCore
             this.responseFunc = responseFunc;
         }
 
-        public RevokeHttpMiddleware(IBlackListStore store, Func<HttpContext, string> selector,
+        public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector,
             Func<HttpResponse, Task<HttpResponse>> responseFunc)
         {
             this.store = store;
