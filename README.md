@@ -7,19 +7,21 @@
 |Revoke.NET.Akavache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Akavache.svg)](https://www.nuget.org/packages/Revoke.NET.Akavache/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.Akavache.svg)|
 |Revoke.NET.MongoDB|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MongoDB.svg)](https://www.nuget.org/packages/Revoke.NET.MongoDB/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.MongoDB.svg)|
 |Revoke.NET.Redis|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.Redis.svg)](https://www.nuget.org/packages/Revoke.NET.Redis/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.Redis.svg)|
-|Revoke.NET.MonkeyCache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.MonkeyCache.svg)](https://www.nuget.org/packages/Revoke.NET.MonkeyCache/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.MonkeyCache.svg)|
-|Revoke.NET.EasyCache|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.EasyCache.svg)](https://www.nuget.org/packages/Revoke.NET.EasyCache/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.EasyCache.svg)
+|Revoke.NET.EasyCaching|[![Latest version](https://img.shields.io/nuget/v/Revoke.NET.EasyCaching.svg)](https://www.nuget.org/packages/Revoke.NET.EasyCaching/)|![Downloads](https://img.shields.io/nuget/dt/Revoke.NET.EasyCaching.svg)
 # Revoke.NET
 .NET Utility to revoke access based on some given criterias including but not limited to:
 - Web Tokens like JWT Bearer token
 - HTTP Request Header Paramters, Query, URL, Host, IP, Cookies, Body, FormData, Claims...etc
 
 # Installation
-**First**, install the `Revoke.NET` [NuGet package](https://www.nuget.org/packages/Revoke.NET) into your app
+**First**, install the [`Revoke.NET`](https://www.nuget.org/packages/Revoke.NET) into your app
 ```powershell
-PM> Install-Package Revoke.NET
+Install-Package Revoke.NET
 ```
-
+or with dotnet cli: 
+```powershell
+dotnet add package Revoke.NET
+```
 # How to use
 simple create a new BlackList Store of type `IBlackListStore`
 ```csharp
@@ -32,24 +34,24 @@ var key = "[ID String of something to be blacklisted]";
 
 await store.Revoke(key, TimeSpan.FromHours(24)); // Revoke access to a key for 24 hours
 
-var item = store.Get<SomeType>(key); // Retrieve a blacklisted item, SomeType must implement interface 'IBlackListItem'
+await store.Revoke(key); // Revoke access indefinetly or with the defaulTtl expiration
 
-await store.Revoke<SomeType>(model); // Revoke an item with custom type
-
-await store.IsRevoked(key); // Check if key is blacklisted
+var revoked = await store.IsRevoked(key); // Check if key is blacklisted
 
 await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
-Install the `Revoke.NET.AspNetCore` [NuGet package](https://www.nuget.org/packages/Revoke.NET.AspNetCore)
+Install the [`Revoke.NET.AspNetCore`](https://www.nuget.org/packages/Revoke.NET.AspNetCore) into your app
 ```powershell
-PM> Install-Package Revoke.NET.AspNetCore
+Install-Package Revoke.NET.AspNetCore
 ```
-### Usage
+or with dotnet cli: 
+```powershell
+dotnet add package Revoke.NET.AspNetCore
+```
 ```csharp
 using Revoke.NET;
-using Revoke.NET.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,7 +68,6 @@ builder.Services
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Revoke.NET;
-using Revoke.NET.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,3 +92,4 @@ app.MapGet("/logout", async ([FromServices] IBlackListStore store, HttpRequest r
 });
 
 app.Run();
+```
