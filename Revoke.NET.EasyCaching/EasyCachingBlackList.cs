@@ -79,6 +79,7 @@ internal class EasyCachingBlackList : IBlackList
         }
         catch
         {
+            // ignored
         }
     }
 

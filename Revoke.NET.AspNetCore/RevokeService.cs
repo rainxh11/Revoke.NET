@@ -116,7 +116,7 @@ public static class RevokeService
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddIPRevokeMiddleware(this IServiceCollection services)
+    public static IServiceCollection AddIpRevokeMiddleware(this IServiceCollection services)
     {
         var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
@@ -136,7 +136,7 @@ public static class RevokeService
     /// <param name="services"></param>
     /// <param name="responseFunc">custom response function</param>
     /// <returns></returns>
-    public static IServiceCollection AddIPRevokeMiddleware(this IServiceCollection services, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    public static IServiceCollection AddIpRevokeMiddleware(this IServiceCollection services, Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
         var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 

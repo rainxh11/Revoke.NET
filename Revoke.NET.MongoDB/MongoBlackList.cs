@@ -94,6 +94,7 @@ public class MongoBlackList : IBlackList
         }
         catch
         {
+            // ignored
         }
     }
 

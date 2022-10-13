@@ -9,7 +9,7 @@ public static class RevokeService
     public static IServiceCollection AddRevokeAkavacheSQLiteStore(this IServiceCollection services)
     {
         return services.AddSingleton(
-            provider => AkavacheBlackList.CreateStoreAsync("RevokeStore", BlobCache.LocalMachine)
+            _ => AkavacheBlackList.CreateStoreAsync("RevokeStore", BlobCache.LocalMachine)
                 .GetAwaiter()
                 .GetResult());
     }
@@ -17,7 +17,7 @@ public static class RevokeService
     public static IServiceCollection AddRevokeAkavacheInMemoryStore(this IServiceCollection services)
     {
         return services.AddSingleton(
-            provider => AkavacheBlackList.CreateStoreAsync("RevokeStore", BlobCache.InMemory)
+            _ => AkavacheBlackList.CreateStoreAsync("RevokeStore", BlobCache.InMemory)
                 .GetAwaiter()
                 .GetResult());
     }

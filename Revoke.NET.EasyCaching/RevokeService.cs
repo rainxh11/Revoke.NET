@@ -8,7 +8,7 @@ public static class RevokeService
 {
     public static IServiceCollection AddRevokeEasyCaching(this IServiceCollection services, IEasyCachingProvider easyCachingProvider, TimeSpan? defaultTtl = null)
     {
-        return services.AddSingleton<IBlackList, EasyCachingBlackList>(provider => new EasyCachingBlackList(easyCachingProvider, defaultTtl));
+        return services.AddSingleton<IBlackList, EasyCachingBlackList>(_ => new EasyCachingBlackList(easyCachingProvider, defaultTtl));
     }
 
     public static IServiceCollection AddRevokeEasyCaching(this IServiceCollection services, Func<IEasyCachingProviderFactory, IEasyCachingProvider> easyCachingConfig, TimeSpan? defaultTtl = null)

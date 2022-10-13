@@ -8,63 +8,63 @@ using Microsoft.Extensions.Logging;
 
 public class RevokeHttpMiddleware : IMiddleware
 {
-    private readonly IBlackList store;
-    private readonly Func<HttpContext, string> selector;
+    private readonly IBlackList _store;
+    private readonly Func<HttpContext, string> _selector;
 
 #nullable enable
-    private readonly ILogger<RevokeHttpMiddleware>? logger;
-    private readonly Func<HttpResponse, Task<HttpResponse>>? responseFunc;
+    private readonly ILogger<RevokeHttpMiddleware>? _logger;
+    private readonly Func<HttpResponse, Task<HttpResponse>>? _responseFunc;
 #nullable disable
 
     public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger, Func<HttpContext, string> selector)
     {
-        this.store = store;
-        this.logger = logger;
-        this.selector = selector;
+        this._store = store;
+        this._logger = logger;
+        this._selector = selector;
     }
 
     public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector)
     {
-        this.store = store;
-        this.selector = selector;
+        this._store = store;
+        this._selector = selector;
     }
 
     public RevokeHttpMiddleware(
         IBlackList store, ILogger<RevokeHttpMiddleware> logger, Func<HttpContext, string> selector,
         Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
-        this.store = store;
-        this.logger = logger;
-        this.selector = selector;
-        this.responseFunc = responseFunc;
+        this._store = store;
+        this._logger = logger;
+        this._selector = selector;
+        this._responseFunc = responseFunc;
     }
 
     public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector, Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
-        this.store = store;
-        this.selector = selector;
-        this.responseFunc = responseFunc;
+        this._store = store;
+        this._selector = selector;
+        this._responseFunc = responseFunc;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
         {
-            var revokeKey = this.selector(context);
+            var revokeKey = this._selector(context);
             if (revokeKey != null)
             {
-                if (await this.store.IsRevoked(revokeKey))
+                if (await this._store.IsRevoked(revokeKey))
                 {
-                    if (this.responseFunc != null)
+                    if (this._responseFunc != null)
                     {
-                        await this.responseFunc(context.Response);
+                        await this._responseFunc(context.Response);
                     }
                     else
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     }
 
-                    this.logger.LogInformation($"[Revoke.NET] Revoked Access to key: '{revokeKey}'");
+                    this._logger?.LogInformation("[Revoke.NET] Revoked Access to key: \'{RevokeKey}\'", revokeKey);
                 }
                 else
                 {
@@ -78,7 +78,7 @@ public class RevokeHttpMiddleware : IMiddleware
         }
         catch (Exception ex)
         {
-            this.logger?.LogError(ex.Message);
+            this._logger?.LogError("{ErrorMessage}",ex.Message);
             await next(context);
         }
     }

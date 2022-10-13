@@ -1,12 +1,21 @@
-﻿namespace Revoke.NET;
+namespace Revoke.NET;
 
 using System;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
+/// <summary>
+///     The revoke service class
+/// </summary>
 public static class RevokeService
 {
+    /// <summary>
+    ///     Register default InMemory BlackList Store Service using <seealso cref="MemoryCacheBlackList" />
+    /// </summary>
+    /// <param name="services">The services</param>
+    /// <param name="defaultTtl">The default ttl</param>
+    /// <returns>The services</returns>
     public static IServiceCollection AddRevokeMemoryCacheStore(this IServiceCollection services, TimeSpan? defaultTtl = null)
     {
         services.TryAddSingleton<IBlackList>(provider => new MemoryCacheBlackList(provider.GetService<IMemoryCache>(), defaultTtl));
