@@ -1,13 +1,17 @@
 # Revoke.NET Akavache Store
+
 Akavache BlackList Store Extension for [`Revoke.NET`] (https://www.nuget.org/packages/Revoke.NET)
 
 # Installation
+
 Install the `Revoke.NET.Akavache` [NuGet package](https://www.nuget.org/packages/Revoke.NET.Akavache) into your app
+
 ```powershell
 PM> Install-Package Revoke.NET.Akavache
 ```
 
 # How to use
+
 ```csharp
 using Revoke.NET;
 using Revoke.NET.Akavache;
@@ -27,7 +31,9 @@ await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
+
 Install the `Revoke.NET.AspNetCore` [NuGet package](https://www.nuget.org/packages/Revoke.NET.AspNetCore)
+
 ```powershell
 PM> Install-Package Revoke.NET.AspNetCore
 ```

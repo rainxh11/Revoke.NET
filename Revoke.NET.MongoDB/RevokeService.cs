@@ -1,32 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Revoke.NET.MongoDB;
+
+using global::MongoDB.Driver;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 
-namespace Revoke.NET.MongoDB
+public static class RevokeService
 {
-    public static class RevokeService
+    public static IServiceCollection AddRevokeMongoStore(this IServiceCollection services)
     {
-        public static IServiceCollection AddRevokeMongoStore(this IServiceCollection services)
-        {
-            return services
-                .AddSingleton<IBlackList>(provider => MongoBlackList.CreateStoreAsync(
-                        "RevokeStore",
-                        MongoClientSettings.FromConnectionString("mongodb://127.0.0.1:27017/RevokeStore"))
-                    .GetAwaiter()
-                    .GetResult());
-        }
+        return services.AddSingleton(
+            _ => MongoBlackList.CreateStoreAsync("RevokeStore", MongoClientSettings.FromConnectionString("mongodb://127.0.0.1:27017/RevokeStore"))
+                .GetAwaiter()
+                .GetResult());
+    }
 
-        public static IServiceCollection AddRevokeMongoStore(this IServiceCollection services, string dbName,
-            MongoClientSettings settings)
-        {
-            return services
-                .AddSingleton<IBlackList>(provider => MongoBlackList.CreateStoreAsync(
-                        dbName,
-                        settings)
-                    .GetAwaiter()
-                    .GetResult());
-        }
+    public static IServiceCollection AddRevokeMongoStore(this IServiceCollection services, string dbName, MongoClientSettings settings)
+    {
+        return services.AddSingleton(
+            _ => MongoBlackList.CreateStoreAsync(dbName, settings)
+                .GetAwaiter()
+                .GetResult());
     }
 }

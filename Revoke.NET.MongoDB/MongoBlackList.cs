@@ -1,131 +1,144 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Revoke.NET.MongoDB;
+
+using System;
 using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
-using Revoke.NET;
+using global::MongoDB.Bson;
+using global::MongoDB.Bson.Serialization.Attributes;
+using global::MongoDB.Driver;
 
-namespace Revoke.NET.MongoDB
+public class MongoBlackListItem
 {
-    public class MongoBlackListItem
+    public MongoBlackListItem(string key, DateTime expireOn)
     {
-        [BsonId] public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
-
-        public MongoBlackListItem(string key, DateTime expireOn)
-        {
-            Key = key;
-            ExpireOn = expireOn;
-        }
-
-        public string Key { get; set; }
-        public DateTime ExpireOn { get; set; }
+        this.Key = key;
+        this.ExpireOn = expireOn;
     }
 
-    public class MongoBlackList : IBlackList
+    [BsonId]
+    public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
+
+    public string Key { get; set; }
+    public DateTime ExpireOn { get; set; }
+}
+
+public class MongoBlackList : IBlackList
+{
+    private readonly IMongoCollection<MongoBlackListItem> _blacklist;
+
+    private MongoBlackList(IMongoCollection<MongoBlackListItem> blacklist)
     {
-        private readonly IMongoCollection<MongoBlackListItem> _blacklist;
+        this._blacklist = blacklist;
+    }
 
-        private MongoBlackList(IMongoCollection<MongoBlackListItem> blacklist)
+    public async Task<bool> Revoke(string key, TimeSpan expireAfter)
+    {
+        try
         {
-            this._blacklist = blacklist;
-        }
+            await this._blacklist.InsertOneAsync(new MongoBlackListItem(key, DateTime.Now.Add(expireAfter)));
 
-        public static async Task<IBlackList> CreateStoreAsync(string dbName,
-            MongoClientSettings clientSettings)
+            return true;
+        }
+        catch
         {
-            var client = new MongoClient(clientSettings);
-
-            var db = client.GetDatabase(dbName);
-
-            var keyIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.Key);
-            var ttlIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.ExpireOn);
-
-            var collection = db.GetCollection<MongoBlackListItem>(nameof(MongoBlackListItem));
-
-            await collection.Indexes.CreateOneAsync(
-                new CreateIndexModel<MongoBlackListItem>(keyIndex, new CreateIndexOptions() { Unique = true }));
-            await collection.Indexes.CreateOneAsync(
-                new CreateIndexModel<MongoBlackListItem>(ttlIndex,
-                    new CreateIndexOptions() { ExpireAfter = TimeSpan.FromMinutes(1) }));
-
-            return new MongoBlackList(collection);
+            return false;
         }
+    }
 
-        public async Task<bool> Revoke(string key, TimeSpan expireAfter)
+    public async Task<bool> Revoke(string key, DateTime expireOn)
+    {
+        try
         {
-            try
-            {
-                await _blacklist.InsertOneAsync(new MongoBlackListItem(key, DateTime.Now.Add(expireAfter)));
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+            await this._blacklist.InsertOneAsync(new MongoBlackListItem(key, expireOn));
 
-        public async Task<bool> Revoke(string key, DateTime expireOn)
-        {
-            try
-            {
-                await _blacklist.InsertOneAsync(new MongoBlackListItem(key, expireOn));
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return true;
         }
+        catch
+        {
+            return false;
+        }
+    }
 
-        public async Task<bool> Revoke(string key)
+    public async Task<bool> Revoke(string key)
+    {
+        try
         {
-            try
-            {
-                await _blacklist.InsertOneAsync(new MongoBlackListItem(key, DateTime.MaxValue));
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+            await this._blacklist.InsertOneAsync(new MongoBlackListItem(key, DateTime.MaxValue));
 
-        public async Task<bool> Delete(string key)
-        {
-            try
-            {
-                var delete = await _blacklist.DeleteOneAsync(x => x.Key == key);
-                return delete.IsAcknowledged;
-            }
-            catch
-            {
-                return false;
-            }
+            return true;
         }
+        catch
+        {
+            return false;
+        }
+    }
 
-        public async Task DeleteAll()
+    public async Task<bool> Delete(string key)
+    {
+        try
         {
-            try
-            {
-                await _blacklist.DeleteManyAsync(x => true);
-            }
-            catch
-            {
-            }
-        }
+            var delete = await this._blacklist.DeleteOneAsync(x => x.Key == key);
 
-        public async Task<bool> IsRevoked(string key)
-        {
-            try
-            {
-                var item = await _blacklist.Find(x => x.Key == key).SingleAsync();
-                return item.ExpireOn > DateTime.Now;
-            }
-            catch
-            {
-                return false;
-            }
+            return delete.IsAcknowledged;
         }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public async Task DeleteAll()
+    {
+        try
+        {
+            await this._blacklist.DeleteManyAsync(x => true);
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    public async Task<bool> IsRevoked(string key)
+    {
+        try
+        {
+            var item = await this._blacklist.Find(x => x.Key == key)
+                .SingleAsync();
+
+            return item.ExpireOn > DateTime.Now;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public static async Task<IBlackList> CreateStoreAsync(string dbName, MongoClientSettings clientSettings)
+    {
+        var client = new MongoClient(clientSettings);
+
+        var db = client.GetDatabase(dbName);
+
+        var keyIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.Key);
+        var ttlIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.ExpireOn);
+
+        var collection = db.GetCollection<MongoBlackListItem>(nameof(MongoBlackListItem));
+
+        await collection.Indexes.CreateOneAsync(
+            new CreateIndexModel<MongoBlackListItem>(
+                keyIndex,
+                new CreateIndexOptions
+                {
+                    Unique = true
+                }));
+        await collection.Indexes.CreateOneAsync(
+            new CreateIndexModel<MongoBlackListItem>(
+                ttlIndex,
+                new CreateIndexOptions
+                {
+                    ExpireAfter = TimeSpan.FromMinutes(1)
+                }));
+
+        return new MongoBlackList(collection);
     }
 }

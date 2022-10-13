@@ -1,93 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace Revoke.NET.AspNetCore;
+
+using System;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Revoke.NET.AspNetCore
+public class RevokeHttpMiddleware : IMiddleware
 {
-    public class RevokeHttpMiddleware : IMiddleware
-    {
-        private readonly IBlackList store;
-        private readonly Func<HttpContext, string> selector;
+    private readonly IBlackList _store;
+    private readonly Func<HttpContext, string> _selector;
 
 #nullable enable
-        private readonly ILogger<RevokeHttpMiddleware>? logger;
-        private Func<HttpResponse, Task<HttpResponse>>? responseFunc;
+    private readonly ILogger<RevokeHttpMiddleware>? _logger;
+    private readonly Func<HttpResponse, Task<HttpResponse>>? _responseFunc;
 #nullable disable
 
-        public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger,
-            Func<HttpContext, string> selector)
-        {
-            this.store = store;
-            this.logger = logger;
-            this.selector = selector;
-        }
+    public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger, Func<HttpContext, string> selector)
+    {
+        this._store = store;
+        this._logger = logger;
+        this._selector = selector;
+    }
 
-        public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector)
-        {
-            this.store = store;
-            this.selector = selector;
-        }
+    public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector)
+    {
+        this._store = store;
+        this._selector = selector;
+    }
 
-        public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger,
-            Func<HttpContext, string> selector, Func<HttpResponse, Task<HttpResponse>> responseFunc)
-        {
-            this.store = store;
-            this.logger = logger;
-            this.selector = selector;
-            this.responseFunc = responseFunc;
-        }
+    public RevokeHttpMiddleware(
+        IBlackList store, ILogger<RevokeHttpMiddleware> logger, Func<HttpContext, string> selector,
+        Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    {
+        this._store = store;
+        this._logger = logger;
+        this._selector = selector;
+        this._responseFunc = responseFunc;
+    }
 
-        public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector,
-            Func<HttpResponse, Task<HttpResponse>> responseFunc)
-        {
-            this.store = store;
-            this.selector = selector;
-            this.responseFunc = responseFunc;
-        }
+    public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    {
+        this._store = store;
+        this._selector = selector;
+        this._responseFunc = responseFunc;
+    }
 
-
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    {
+        try
         {
-            try
+            var revokeKey = this._selector(context);
+            if (revokeKey != null)
             {
-                var revokeKey = selector(context);
-                if (revokeKey != null)
+                if (await this._store.IsRevoked(revokeKey))
                 {
-                    if (await store.IsRevoked(revokeKey))
+                    if (this._responseFunc != null)
                     {
-                        if (responseFunc != null)
-                        {
-                            await responseFunc(context.Response);
-                        }
-                        else
-                        {
-                            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                        }
-
-
-                        logger.LogInformation(
-                            $"[Revoke.NET] Revoked Access to key: '{revokeKey}'");
+                        await this._responseFunc(context.Response);
                     }
                     else
                     {
-                        await next(context);
+                        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     }
+
+                    this._logger?.LogInformation("[Revoke.NET] Revoked Access to key: \'{RevokeKey}\'", revokeKey);
                 }
                 else
                 {
                     await next(context);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                logger?.LogError(ex.Message);
                 await next(context);
             }
+        }
+        catch (Exception ex)
+        {
+            this._logger?.LogError("{ErrorMessage}",ex.Message);
+            await next(context);
         }
     }
 }

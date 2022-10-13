@@ -1,13 +1,17 @@
 # Revoke.NET ASP.NET Core Extension
+
 MongoDB BlackList Store Extension for [`Revoke.NET`] (https://www.nuget.org/packages/Revoke.NET)
 
 # Installation
+
 Install the `Revoke.NET.AspNetCore` [NuGet package](https://www.nuget.org/packages/Revoke.NET.AspNetCore) into your app
+
 ```powershell
 PM> Install-Package Revoke.NET.AspNetCore
 ```
 
 # Usage with ASP.NET Core
+
 ```csharp
 using Revoke.NET;
 using Revoke.NET.AspNetCore;
@@ -23,6 +27,7 @@ builder.Services
 ```
 
 ### JWT Bearer Token Example
+
 ```csharp
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;

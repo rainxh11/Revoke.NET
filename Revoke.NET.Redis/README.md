@@ -1,13 +1,17 @@
 # Revoke.NET Redis Store
+
 Redis BlackList Store Extension for [`Revoke.NET`] (https://www.nuget.org/packages/Revoke.NET)
 
 # Installation
+
 Install the `Revoke.NET.Redis` [NuGet package](https://www.nuget.org/packages/Revoke.NET.Redis) into your app
+
 ```powershell
 PM> Install-Package Revoke.NET.Redis
 ```
 
 # How to use
+
 ```csharp
 using Revoke.NET;
 using Revoke.NET.Redis;
@@ -24,7 +28,9 @@ await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
+
 Install the `Revoke.NET.AspNetCore` [NuGet package](https://www.nuget.org/packages/Revoke.NET.AspNetCore)
+
 ```powershell
 PM> Install-Package Revoke.NET.AspNetCore
 ```
