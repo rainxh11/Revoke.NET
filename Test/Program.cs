@@ -1,5 +1,4 @@
-﻿using Revoke.NET;
-using Revoke.NET.Redis;
+﻿using Revoke.NET.Redis;
 
 var store = await RedisBlackList.CreateStoreAsync("localhost");
 

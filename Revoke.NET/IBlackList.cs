@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Revoke.NET;
+
+using System;
 using System.Threading.Tasks;
 
-namespace Revoke.NET
+public interface IBlackList
 {
-    public interface IBlackList
-    {
-        Task<bool> Revoke(string key, TimeSpan expireAfter);
-        Task<bool> Revoke(string key, DateTime expireOn);
-        Task<bool> Revoke(string key);
-        Task<bool> Delete(string key);
-        Task DeleteAll();
-        Task<bool> IsRevoked(string key);
-    }
+    Task<bool> Revoke(string key, TimeSpan expireAfter);
+
+    Task<bool> Revoke(string key, DateTime expireOn);
+
+    Task<bool> Revoke(string key);
+
+    Task<bool> Delete(string key);
+
+    Task DeleteAll();
+
+    Task<bool> IsRevoked(string key);
 }

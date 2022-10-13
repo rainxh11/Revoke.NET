@@ -1,19 +1,28 @@
 # Revoke.NET
+
 .NET Utility to revoke access based on some given criterias including but not limited to:
+
 - Web Tokens like JWT Bearer token
 - HTTP Request Header Paramters, Query, URL, Host, IP, Cookies, Body, FormData, Claims...etc
 
 # Installation
+
 **First**, install the [`Revoke.NET`](https://www.nuget.org/packages/Revoke.NET) into your app
+
 ```powershell
 Install-Package Revoke.NET
 ```
-or with dotnet cli: 
+
+or with dotnet cli:
+
 ```powershell
 dotnet add package Revoke.NET
 ```
+
 # How to use
+
 simple create a new BlackList Store of type `IBlackListStore`
+
 ```csharp
 using Revoke.NET;
 
@@ -32,14 +41,19 @@ await store.Delete(key); // Delete a key from blacklist
 ```
 
 # Usage with ASP.NET Core
+
 Install the [`Revoke.NET.AspNetCore`](https://www.nuget.org/packages/Revoke.NET.AspNetCore) into your app
+
 ```powershell
 Install-Package Revoke.NET.AspNetCore
 ```
-or with dotnet cli: 
+
+or with dotnet cli:
+
 ```powershell
 dotnet add package Revoke.NET.AspNetCore
 ```
+
 ```csharp
 using Revoke.NET;
 
@@ -54,6 +68,7 @@ builder.Services
 ```
 
 ### JWT Bearer Token Example
+
 ```csharp
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;

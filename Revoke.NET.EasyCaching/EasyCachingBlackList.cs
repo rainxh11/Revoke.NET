@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using EasyCaching.Core;
+﻿namespace Revoke.NET.EasyCaching;
 
-namespace Revoke.NET.EasyCaching;
+using System;
+using System.Threading.Tasks;
+using global::EasyCaching.Core;
 
 internal class EasyCachingBlackList : IBlackList
 {
-    private readonly IEasyCachingProvider _easyCaching;
     private readonly TimeSpan? _defaultTtl;
+    private readonly IEasyCachingProvider _easyCaching;
 
     public EasyCachingBlackList(IEasyCachingProvider easyCaching, TimeSpan? defaultTtl = null)
     {
-        _defaultTtl = defaultTtl;
-        _easyCaching = easyCaching;
+        this._defaultTtl = defaultTtl;
+        this._easyCaching = easyCaching;
     }
 
     public async Task<bool> Revoke(string key, TimeSpan expireAfter)
     {
         try
         {
-            await _easyCaching.SetAsync(key, key, expireAfter);
+            await this._easyCaching.SetAsync(key, key, expireAfter);
+
             return true;
         }
         catch
@@ -34,7 +33,8 @@ internal class EasyCachingBlackList : IBlackList
     {
         try
         {
-            await _easyCaching.SetAsync(key, key, expireOn - DateTime.Now);
+            await this._easyCaching.SetAsync(key, key, expireOn - DateTime.Now);
+
             return true;
         }
         catch
@@ -47,7 +47,8 @@ internal class EasyCachingBlackList : IBlackList
     {
         try
         {
-            await _easyCaching.SetAsync(key, key, _defaultTtl ?? TimeSpan.MaxValue);
+            await this._easyCaching.SetAsync(key, key, this._defaultTtl ?? TimeSpan.MaxValue);
+
             return true;
         }
         catch
@@ -60,7 +61,8 @@ internal class EasyCachingBlackList : IBlackList
     {
         try
         {
-            await _easyCaching.RemoveAsync(key);
+            await this._easyCaching.RemoveAsync(key);
+
             return true;
         }
         catch
@@ -73,7 +75,7 @@ internal class EasyCachingBlackList : IBlackList
     {
         try
         {
-            await _easyCaching.FlushAsync();
+            await this._easyCaching.FlushAsync();
         }
         catch
         {
@@ -84,7 +86,7 @@ internal class EasyCachingBlackList : IBlackList
     {
         try
         {
-            return await _easyCaching.ExistsAsync(key);
+            return await this._easyCaching.ExistsAsync(key);
         }
         catch
         {

@@ -1,39 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	  <LangVersion>10.0</LangVersion>
-	  <PackageIcon>revoke.net.png</PackageIcon>
-	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
-	  <OutputType>Library</OutputType>
-	  <Version>2.0.0</Version>
-	  <StartupObject />
-	  <Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
-	  <Description>Revoke.NET EasyCaching Store Extension</Description>
-	  <Copyright>© 2022 Chakhoum Ahmed</Copyright>
-	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
-	  <PackageProjectUrl>https://github.com/rainxh11/Revoke.NET</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/rainxh11/Revoke.NET/tree/main/Revoke.NET.EasyCaching</RepositoryUrl>
-	  <RepositoryType>github</RepositoryType>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <PackageTags>revoke;easycaching;permission;deny;blacklist;expiration;invalidate;store</PackageTags>
-	  <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-	  <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <PackageIcon>revoke.net.png</PackageIcon>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <OutputType>Library</OutputType>
+        <Version>2.0.0</Version>
+        <StartupObject/>
+        <Authors>Chakhoum Ahmed (github.com/rainxh11)</Authors>
+        <Description>Revoke.NET EasyCaching Store Extension</Description>
+        <Copyright>© 2022 Chakhoum Ahmed</Copyright>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageProjectUrl>https://github.com/rainxh11/Revoke.NET</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rainxh11/Revoke.NET/tree/main/Revoke.NET.EasyCaching</RepositoryUrl>
+        <RepositoryType>github</RepositoryType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageTags>revoke;easycaching;permission;deny;blacklist;expiration;invalidate;store</PackageTags>
+        <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+        <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-	  <None Include="..\assets\revoke.net.png" Pack="true" PackagePath="\" />
-	  <None Include="..\LICENSE" Pack="true" PackagePath="\" />
-	  <PackageReference Include="EasyCaching.Core" Version="1.6.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Revoke.NET" Version="2.0.1" />
-  </ItemGroup>
-	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
-		<ItemGroup>
-			<BuildOutputInPackage
-				Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-		</ItemGroup>
-	</Target>
+    <ItemGroup>
+        <None Include="..\assets\revoke.net.png" Pack="true" PackagePath="\"/>
+        <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
+        <PackageReference Include="EasyCaching.Core" Version="1.6.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0"/>
+        <PackageReference Include="Revoke.NET" Version="2.0.1"/>
+    </ItemGroup>
+    <Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+        <ItemGroup>
+            <BuildOutputInPackage
+                    Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+        </ItemGroup>
+    </Target>
 
 </Project>
