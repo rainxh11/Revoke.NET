@@ -39,7 +39,7 @@ public class AkavacheBlackList : IBlackList
         try
         {
             await this._blackList.Vacuum();
-            var exist = await this._blackList.Get(key);
+            byte[] exist = await this._blackList.Get(key);
 
             return exist.Length > 0;
         }
@@ -63,7 +63,9 @@ public class AkavacheBlackList : IBlackList
         }
     }
 
-    public async Task<bool> Revoke(string key, TimeSpan expireAfter)
+    public async Task<bool> Revoke(
+        string key,
+        TimeSpan expireAfter)
     {
         try
         {
@@ -77,7 +79,9 @@ public class AkavacheBlackList : IBlackList
         }
     }
 
-    public async Task<bool> Revoke(string key, DateTime expireOn)
+    public async Task<bool> Revoke(
+        string key,
+        DateTime expireOn)
     {
         try
         {
@@ -91,7 +95,10 @@ public class AkavacheBlackList : IBlackList
         }
     }
 
-    public static async Task<IBlackList> CreateStoreAsync(string cacheName, IBlobCache blobCache, TimeSpan? defaultTtl = null)
+    public static async Task<IBlackList> CreateStoreAsync(
+        string cacheName,
+        IBlobCache blobCache,
+        TimeSpan? defaultTtl = null)
     {
         _defaultTtl = defaultTtl;
         Registrations.Start(cacheName);

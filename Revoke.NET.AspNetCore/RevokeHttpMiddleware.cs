@@ -16,21 +16,28 @@ public class RevokeHttpMiddleware : IMiddleware
     private readonly Func<HttpResponse, Task<HttpResponse>>? _responseFunc;
 #nullable disable
 
-    public RevokeHttpMiddleware(IBlackList store, ILogger<RevokeHttpMiddleware> logger, Func<HttpContext, string> selector)
+    public RevokeHttpMiddleware(
+        IBlackList store,
+        ILogger<RevokeHttpMiddleware> logger,
+        Func<HttpContext, string> selector)
     {
         this._store = store;
         this._logger = logger;
         this._selector = selector;
     }
 
-    public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector)
+    public RevokeHttpMiddleware(
+        IBlackList store,
+        Func<HttpContext, string> selector)
     {
         this._store = store;
         this._selector = selector;
     }
 
     public RevokeHttpMiddleware(
-        IBlackList store, ILogger<RevokeHttpMiddleware> logger, Func<HttpContext, string> selector,
+        IBlackList store,
+        ILogger<RevokeHttpMiddleware> logger,
+        Func<HttpContext, string> selector,
         Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
         this._store = store;
@@ -39,18 +46,23 @@ public class RevokeHttpMiddleware : IMiddleware
         this._responseFunc = responseFunc;
     }
 
-    public RevokeHttpMiddleware(IBlackList store, Func<HttpContext, string> selector, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    public RevokeHttpMiddleware(
+        IBlackList store,
+        Func<HttpContext, string> selector,
+        Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
         this._store = store;
         this._selector = selector;
         this._responseFunc = responseFunc;
     }
 
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    public async Task InvokeAsync(
+        HttpContext context,
+        RequestDelegate next)
     {
         try
         {
-            var revokeKey = this._selector(context);
+            string revokeKey = this._selector(context);
             if (revokeKey != null)
             {
                 if (await this._store.IsRevoked(revokeKey))
@@ -78,7 +90,7 @@ public class RevokeHttpMiddleware : IMiddleware
         }
         catch (Exception ex)
         {
-            this._logger?.LogError("{ErrorMessage}",ex.Message);
+            this._logger?.LogError("{ErrorMessage}", ex.Message);
             await next(context);
         }
     }

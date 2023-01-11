@@ -12,7 +12,9 @@ public static class RevokeService
                 .GetResult());
     }
 
-    public static IServiceCollection AddRevokeRedisStore(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddRevokeRedisStore(
+        this IServiceCollection services,
+        string connectionString)
     {
         return services.AddSingleton(
             _ => RedisBlackList.CreateStoreAsync(connectionString)

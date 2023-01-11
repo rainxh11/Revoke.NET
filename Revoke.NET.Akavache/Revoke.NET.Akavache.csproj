@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>10.0</LangVersion>
         <PackageIcon>revoke.net.png</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -22,7 +21,6 @@
         <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
-
     <ItemGroup>
         <None Include="..\assets\revoke.net.png" Pack="true" PackagePath="\"/>
         <None Include="readme.md" Pack="true" PackagePath="\"/>

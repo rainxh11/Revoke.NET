@@ -8,7 +8,9 @@ using global::MongoDB.Driver;
 
 public class MongoBlackListItem
 {
-    public MongoBlackListItem(string key, DateTime expireOn)
+    public MongoBlackListItem(
+        string key,
+        DateTime expireOn)
     {
         this.Key = key;
         this.ExpireOn = expireOn;
@@ -30,7 +32,9 @@ public class MongoBlackList : IBlackList
         this._blacklist = blacklist;
     }
 
-    public async Task<bool> Revoke(string key, TimeSpan expireAfter)
+    public async Task<bool> Revoke(
+        string key,
+        TimeSpan expireAfter)
     {
         try
         {
@@ -44,7 +48,9 @@ public class MongoBlackList : IBlackList
         }
     }
 
-    public async Task<bool> Revoke(string key, DateTime expireOn)
+    public async Task<bool> Revoke(
+        string key,
+        DateTime expireOn)
     {
         try
         {
@@ -76,7 +82,7 @@ public class MongoBlackList : IBlackList
     {
         try
         {
-            var delete = await this._blacklist.DeleteOneAsync(x => x.Key == key);
+            DeleteResult delete = await this._blacklist.DeleteOneAsync(x => x.Key == key);
 
             return delete.IsAcknowledged;
         }
@@ -102,7 +108,7 @@ public class MongoBlackList : IBlackList
     {
         try
         {
-            var item = await this._blacklist.Find(x => x.Key == key)
+            MongoBlackListItem item = await this._blacklist.Find(x => x.Key == key)
                 .SingleAsync();
 
             return item.ExpireOn > DateTime.Now;
@@ -113,16 +119,20 @@ public class MongoBlackList : IBlackList
         }
     }
 
-    public static async Task<IBlackList> CreateStoreAsync(string dbName, MongoClientSettings clientSettings)
+    public static async Task<IBlackList> CreateStoreAsync(
+        string dbName,
+        MongoClientSettings clientSettings)
     {
-        var client = new MongoClient(clientSettings);
+        MongoClient client = new(clientSettings);
 
-        var db = client.GetDatabase(dbName);
+        IMongoDatabase db = client.GetDatabase(dbName);
 
-        var keyIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.Key);
-        var ttlIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.ExpireOn);
+        IndexKeysDefinition<MongoBlackListItem> keyIndex = Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.Key);
+        IndexKeysDefinition<MongoBlackListItem> ttlIndex =
+            Builders<MongoBlackListItem>.IndexKeys.Ascending(x => x.ExpireOn);
 
-        var collection = db.GetCollection<MongoBlackListItem>(nameof(MongoBlackListItem));
+        IMongoCollection<MongoBlackListItem> collection =
+            db.GetCollection<MongoBlackListItem>(nameof(MongoBlackListItem));
 
         await collection.Indexes.CreateOneAsync(
             new CreateIndexModel<MongoBlackListItem>(

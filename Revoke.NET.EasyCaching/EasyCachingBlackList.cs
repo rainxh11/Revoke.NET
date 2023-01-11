@@ -9,13 +9,17 @@ internal class EasyCachingBlackList : IBlackList
     private readonly TimeSpan? _defaultTtl;
     private readonly IEasyCachingProvider _easyCaching;
 
-    public EasyCachingBlackList(IEasyCachingProvider easyCaching, TimeSpan? defaultTtl = null)
+    public EasyCachingBlackList(
+        IEasyCachingProvider easyCaching,
+        TimeSpan? defaultTtl = null)
     {
         this._defaultTtl = defaultTtl;
         this._easyCaching = easyCaching;
     }
 
-    public async Task<bool> Revoke(string key, TimeSpan expireAfter)
+    public async Task<bool> Revoke(
+        string key,
+        TimeSpan expireAfter)
     {
         try
         {
@@ -29,7 +33,9 @@ internal class EasyCachingBlackList : IBlackList
         }
     }
 
-    public async Task<bool> Revoke(string key, DateTime expireOn)
+    public async Task<bool> Revoke(
+        string key,
+        DateTime expireOn)
     {
         try
         {
