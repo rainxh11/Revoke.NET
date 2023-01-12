@@ -22,7 +22,9 @@ public static class RevokeService
                 .GetResult());
     }
 
-    public static IServiceCollection AddRevokeAkavacheStore(this IServiceCollection services, Func<IServiceProvider, IBlobCache> configBlobCache)
+    public static IServiceCollection AddRevokeAkavacheStore(
+        this IServiceCollection services,
+        Func<IServiceProvider, IBlobCache> configBlobCache)
     {
         return services.AddSingleton(
             provider => AkavacheBlackList.CreateStoreAsync("RevokeStore", configBlobCache(provider))

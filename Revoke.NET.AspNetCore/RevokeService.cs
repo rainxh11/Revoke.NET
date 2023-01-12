@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 
 public static class RevokeService
 {
-    public static IServiceCollection AddHttpContextRevokeMiddleware(this IServiceCollection services, Func<HttpContext, string> selector)
+    public static IServiceCollection AddHttpContextRevokeMiddleware(
+        this IServiceCollection services,
+        Func<HttpContext, string> selector)
     {
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, selector);
             });
@@ -32,13 +35,16 @@ public static class RevokeService
     /// </param>
     /// <param name="responseFunc">custom response function</param>
     /// <returns></returns>
-    public static IServiceCollection AddHttpContextRevokeMiddleware(this IServiceCollection services, Func<HttpContext, string> selector, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    public static IServiceCollection AddHttpContextRevokeMiddleware(
+        this IServiceCollection services,
+        Func<HttpContext, string> selector,
+        Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, selector, responseFunc);
             });
@@ -51,12 +57,12 @@ public static class RevokeService
     /// <returns></returns>
     public static IServiceCollection AddJWTBearerTokenRevokeMiddleware(this IServiceCollection services)
     {
-        var bearerTokenSelector = new Func<HttpContext, string>(
+        Func<HttpContext, string>? bearerTokenSelector = new Func<HttpContext, string>(
             context =>
             {
-                if (context.Request.Headers.TryGetValue("Authorization", out var authHeader))
+                if (context.Request.Headers.TryGetValue("Authorization", out StringValues authHeader))
                 {
-                    var jwtToken = AuthenticationHeaderValue.Parse(authHeader)
+                    string? jwtToken = AuthenticationHeaderValue.Parse(authHeader)
                         .Parameter;
                     if (jwtToken != null)
                     {
@@ -70,8 +76,8 @@ public static class RevokeService
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, bearerTokenSelector);
             });
@@ -83,14 +89,16 @@ public static class RevokeService
     /// <param name="services"></param>
     /// <param name="responseFunc">custom response function</param>
     /// <returns></returns>
-    public static IServiceCollection AddJWTBearerTokenRevokeMiddleware(this IServiceCollection services, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    public static IServiceCollection AddJWTBearerTokenRevokeMiddleware(
+        this IServiceCollection services,
+        Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
-        var bearerTokenSelector = new Func<HttpContext, string>(
+        Func<HttpContext, string>? bearerTokenSelector = new Func<HttpContext, string>(
             context =>
             {
-                if (context.Request.Headers.TryGetValue("Authorization", out var authHeader))
+                if (context.Request.Headers.TryGetValue("Authorization", out StringValues authHeader))
                 {
-                    var jwtToken = AuthenticationHeaderValue.Parse(authHeader)
+                    string? jwtToken = AuthenticationHeaderValue.Parse(authHeader)
                         .Parameter;
                     if (jwtToken != null)
                     {
@@ -104,8 +112,8 @@ public static class RevokeService
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, bearerTokenSelector, responseFunc);
             });
@@ -118,13 +126,13 @@ public static class RevokeService
     /// <returns></returns>
     public static IServiceCollection AddIpRevokeMiddleware(this IServiceCollection services)
     {
-        var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
+        Func<HttpContext, string>? ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, ipSelector);
             });
@@ -136,15 +144,17 @@ public static class RevokeService
     /// <param name="services"></param>
     /// <param name="responseFunc">custom response function</param>
     /// <returns></returns>
-    public static IServiceCollection AddIpRevokeMiddleware(this IServiceCollection services, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    public static IServiceCollection AddIpRevokeMiddleware(
+        this IServiceCollection services,
+        Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
-        var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
+        Func<HttpContext, string>? ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, ipSelector, responseFunc);
             });
@@ -157,13 +167,13 @@ public static class RevokeService
     /// <returns></returns>
     public static IServiceCollection AddUserIdRevokeMiddleware(this IServiceCollection services)
     {
-        var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
+        Func<HttpContext, string>? ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, ipSelector);
             });
@@ -175,15 +185,17 @@ public static class RevokeService
     /// <param name="services"></param>
     /// <param name="responseFunc">custom response function</param>
     /// <returns></returns>
-    public static IServiceCollection AddUserIdRevokeMiddleware(this IServiceCollection services, Func<HttpResponse, Task<HttpResponse>> responseFunc)
+    public static IServiceCollection AddUserIdRevokeMiddleware(
+        this IServiceCollection services,
+        Func<HttpResponse, Task<HttpResponse>> responseFunc)
     {
-        var ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
+        Func<HttpContext, string>? ipSelector = new Func<HttpContext, string>(context => context.Request.Host.Host);
 
         return services.AddSingleton(
             provider =>
             {
-                var store = provider.GetService<IBlackList>();
-                var logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
+                IBlackList? store = provider.GetService<IBlackList>();
+                ILogger<RevokeHttpMiddleware>? logger = provider.GetService<ILogger<RevokeHttpMiddleware>>();
 
                 return new RevokeHttpMiddleware(store, logger, ipSelector, responseFunc);
             });
